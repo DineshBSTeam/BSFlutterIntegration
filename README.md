@@ -7,7 +7,7 @@ This document serves as the integration doc for the BankSathi SDK into Android n
 
 1. Get latest banksathi.aar file by contacting Banksathi Team
    or
- Get the **banksathi.aar** file from sample project's [app/libs]([https://bitbucket.org/banksaathi/android-native-sdk-integration/src/master](https://github.com/DineshBSTeam/BSFlutterIntegration/edit/master)/) folder
+ Get the **banksathi.aar** file from sample project's [app/libs](https://github.com/DineshBSTeam/BSFlutterIntegration/tree/master/android/app/libs) folder
 
 ```
 Add **banksathi.aar** file in your Project's **app/libs** folder
@@ -103,4 +103,4 @@ add in MainActivity
 MethodChannel channel = const MethodChannel('banksathi_advisor_sdk');
                   await channel.invokeMethod('sendDataToSDK');
 ``` 
-Get more knowledge by following above [Example Project](https://bitbucket.org/banksaathi/android-native-sdk-integration/src/master/app/)
+Get more knowledge by following above [Example Project](https://github.com/DineshBSTeam/BSFlutterIntegration/tree/master)
