@@ -1,7 +1,5 @@
-### Check Your SDK integration Credentials with [ClientTesting.apk](https://bitbucket.org/banksaathi/android-native-sdk-integration/src/master/sample/ClientTesting.apk)
 
-
-# BankSathi SDK Integration to Android Project
+# BankSathi SDK Integration into Flutter Project
 
 This document serves as the integration doc for the BankSathi SDK into Android native application.
 
@@ -9,7 +7,7 @@ This document serves as the integration doc for the BankSathi SDK into Android n
 
 1. Get latest banksathi.aar file by contacting Banksathi Team
    or
- Get the **banksathi.aar** file from sample project's [app/libs](https://bitbucket.org/banksaathi/android-native-sdk-integration/src/master/app/libs/) folder
+ Get the **banksathi.aar** file from sample project's [app/libs]([https://bitbucket.org/banksaathi/android-native-sdk-integration/src/master](https://github.com/DineshBSTeam/BSFlutterIntegration/edit/master)/) folder
 
 ```
 Add **banksathi.aar** file in your Project's **app/libs** folder
@@ -29,11 +27,16 @@ dependencies {
 
 3. Add all required Dependencies of banksathi.aar in **app/build.gradle** and add **Sync** project 
 
-For required dependencies check [build.gradle](https://bitbucket.org/banksaathi/android-native-sdk-integration/src/master/app/build.gradle) or in below mentioned
-> if already added anyone please ignore them
-
 ```
 dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.20"
+    implementation 'androidx.work:work-runtime-ktx:2.8.1'
+
+    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
 >   //other than core { ktx/appcompat/material/constraintlayout } required are below with suitable versions -
     
     implementation 'androidx.compose.runtime:runtime-livedata:1.6.7'
@@ -68,18 +71,36 @@ dependencies {
 
 ```
 
-5. Launch Banksathi in your app by adding below intent code for example on [Button click](https://bitbucket.org/banksaathi/android-native-sdk-integration/src/master/app/src/main/java/com/banksathi/integration/MainActivity.kt)
+5. Launch Banksathi in your app by adding below intent code in your mainActivity and use Method channel to call intent method
+
+add in MainActivity
 
 ```  
-    binding.banksathiBtn.setOnClickListener { view ->
-         val intent = Intent(this, BankSathiLauncher::class.java)
-            intent.putExtra(AdvisorInfo.advisorCode, BS_PROVIDED_CODE)    //Required string format
-            intent.putExtra(AdvisorInfo.advisorSecret, BS_PROVIDED_SECRET_KEY)   //Required string format
-            intent.putExtra(AdvisorInfo.advisorMobile, BS_REGISTERED_MOBILE)     //Required string format
-            intent.putExtra(AdvisorInfo.advisorName, YOUR_NAME)
-            intent.putExtra(AdvisorInfo.advisorEmail, YOUR_EMAIL)
-         startActivity(intent)
-   }
-```
+    MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler {
+                call,
+                result ->
+            if (call.method == METHOD) {
+                val code = "your code" //required
+                val mob = "your mobile" //required
+                val name = "your name"
+                val email = "your email"
 
+                val intent = Intent(this, BankSathiLauncher::class.java)
+                intent.putExtra(AdvisorInfo.advisorCode, code) // Required
+                intent.putExtra(AdvisorInfo.advisorMobile, mob) // Required
+                intent.putExtra(AdvisorInfo.advisorName, name)
+                intent.putExtra(AdvisorInfo.advisorEmail, email)
+                startActivity(intent)
+
+                result.success("json.toString()")
+            } else {
+                result.notImplemented()
+            }
+        }
+```
+6. Call above method from Flutter Side
+```
+MethodChannel channel = const MethodChannel('banksathi_advisor_sdk');
+                  await channel.invokeMethod('sendDataToSDK');
+``` 
 Get more knowledge by following above [Example Project](https://bitbucket.org/banksaathi/android-native-sdk-integration/src/master/app/)
