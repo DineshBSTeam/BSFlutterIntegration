@@ -71,19 +71,20 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 50,
               child: ElevatedButton(
                 onPressed: () async {
-                  MethodChannel channel = const MethodChannel('banksathi_advisor_sdk');
+                  const MethodChannel channel = MethodChannel('banksathi_advisor_sdk');
                   await channel.invokeMethod('sendDataToSDK');
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.purple, // Background color
                   foregroundColor: Colors.white, // Text color
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0), // PaddingtextStyle: TextStyle(fontSize: 18), // Text style
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0), // Padding
+                  textStyle: const TextStyle(fontSize: 18), // Text style
                   elevation: 5, // Elevation (shadow)
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)), // Rounded corners
                   ),
                 ),
-                child: const Text("Launch BankSathi"),
+                child: const Text('Launch BankSathi'),
               ),
             )
           ],
