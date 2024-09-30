@@ -86,10 +86,10 @@ add in MainActivity
                 val email = "your email"
 
                 val intent = Intent(this, BankSathiLauncher::class.java)
-                intent.putExtra(AdvisorInfo.advisorCode, code) // Required
-                intent.putExtra(AdvisorInfo.advisorMobile, mob) // Required
-                intent.putExtra(AdvisorInfo.advisorName, name)
-                intent.putExtra(AdvisorInfo.advisorEmail, email)
+                intent.putExtra(SdkRequiredInfo.advisorCode, code) // Required
+                intent.putExtra(SdkRequiredInfo.advisorMobile, mob) // Required
+                intent.putExtra(SdkRequiredInfo.advisorName, name)
+                intent.putExtra(SdkRequiredInfo.advisorEmail, email)
                 startActivity(intent)
 
                 result.success("json.toString()")
